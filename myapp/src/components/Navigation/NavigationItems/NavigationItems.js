@@ -9,8 +9,9 @@ class NavigationItems extends Component{
             <ul className={classes.NavigationItems}>
                 <NavigationItem link="/" exact>Burger Builder</NavigationItem>
                 <NavigationItem link="/orders">Orders</NavigationItem>
+                <NavigationItem link="/signup" to>Sign up</NavigationItem>
                 <NavigationItem link="/" exact>Sign in</NavigationItem>
-                <NavigationItem link="/" exact>Sign up</NavigationItem>
+                
             </ul>
         );
     }

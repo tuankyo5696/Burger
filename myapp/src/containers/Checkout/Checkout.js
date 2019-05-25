@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Route} from 'react-router-dom';
 import CheckoutSummary from './../../components/Order/CheckoutSummary';
 import ContactData from './../Checkout/Contact-data/ContactData';
+
 class Checkout extends Component {
     state = {
         ingredients : null,
@@ -41,12 +42,14 @@ class Checkout extends Component {
                                 checkoutCancel = {this.checkoutCancelHandler}
                                 checkoutContinue = {this.checkoutContinueHandler}
                 />
+               
                  <Route path = {this.props.match.path +'/contact-data'} 
                         render = {(props) => (<ContactData ingredients = {this.state.ingredients}
                                                        price = {this.state.totalPrice}
                                                 {...props}
                                         />)}
                  />
+
             </div>
         )
     }
