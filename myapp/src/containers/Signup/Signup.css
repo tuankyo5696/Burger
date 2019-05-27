@@ -1,0 +1,52 @@
+h1{
+    color: white;
+}
+
+.Form {
+    background: linear-gradient(to right, #fc466b, #3f5efb);
+    color: #eee;
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    z-index: 100;
+    padding: 10px;
+    box-sizing: border-box;
+}
+button{
+    background-color: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+}
+.Success {
+    margin-left: 0;
+    padding-left: 0;
+    color: rgb(31, 18, 18);
+}
+.Label{
+    font-weight: bold;
+    display: block;
+    margin: 8px  10px;
+    text-align: left
+}
+.Input{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.Invalid {
+    margin-top: 8px;
+    color: red;
+}
+@media (min-width: 600px){
+    .Form{
+        width: 500px;
+    }
+}

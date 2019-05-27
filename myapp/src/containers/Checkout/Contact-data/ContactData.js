@@ -8,9 +8,7 @@ import withErrorHandler from './../../../hoc/withErrorHandle/withErrorHandle';
 import {connect} from 'react-redux'
 import * as Yup from 'yup';
 class ContactData extends Component {
-      state = {
-          orderForm : {}
-      }
+     
     orderHandler = (orderData)  => {
        
             
