@@ -1,18 +1,13 @@
 import React,{Component} from 'react';
 
-import {connect} from 'react-redux';
-import * as actions from './../../store/actions/index';
-import classes from './Signup.css';
+//import {connect} from 'react-redux'
+import classes from './Signin.css';
 import {Formik,Form,Field} from 'formik'   
 import * as Yup from 'yup';
-class Signup extends Component {
-   
-    submitHandler = (account) => {
-        this.props.onAuth(account.username,account.password,account.email);
-    }
+
+class SignIn extends Component {
     render(){
-    
-        const SignupSchema = Yup.object().shape({
+        const SigninSchema = Yup.object().shape({
             username: Yup.string()
             .min(2, 'Too Short!')
             .max(50, 'Too long!')
@@ -21,36 +16,23 @@ class Signup extends Component {
             .min(8, 'Too Short!')
             .max(50, 'Too long!')
             .required('Password is required'),
-            email: Yup.string()
-            .email('Invalid email')
-            .required('Email is required')
         })
-        let errorMessage = null;
-        if(this.props.error){
-            errorMessage = (
-                <p>{this.props.error.message}</p>
-            )
-        }
         return(
             <div>
-                {errorMessage}
-                 <Formik 
+               <Formik 
                 initialValues = {{
                     username: '',
                     password: '',
-                    email: ''
                 }}
-                 validationSchema = {SignupSchema}
+                 validationSchema = {SigninSchema}
                  onSubmit = {values => {
-                 
-                    this.submitHandler(values)
-                   alert('Create account successfully')
+                        console.log(values);
                  }}>
             {({errors,touched}) => (
                <div className = {classes.To}>
                    
                      <Form className = {classes.Form} >
-                     <h2>Sign up</h2>
+                     <h2>Sign in</h2>
                          <label className={classes.Label}>Username</label>
                         <Field name="username" className ={classes.Input} />
                         {errors.username && touched.username ? (
@@ -61,30 +43,15 @@ class Signup extends Component {
                         {errors.password && touched.password ? (
                             <div className={classes.Invalid} >{errors.password}</div>
                         ) : null}
-                        <label  className={classes.Label}>Email</label>
-                        <Field name="email" type="email"  className ={classes.Input}/>
-                        {errors.email && touched.email ? <div className={classes.Invalid}>{errors.email}</div> : null}
                         <button type="submit" className={classes.Success}>SUBMIT</button>
                     </Form>
                </div> 
             )} 
             </Formik>
             </div>
-           
         )
     }
 }
 
-const mapStateToProps = state  => {
-    return {
-      loading: state.auth.loading,
-      error: state.auth.error     
-    }
-}
 
-const mapDispatchToProps  = dispatch  => {
-    return {
-        onAuth : (username,password,email) => dispatch(actions.auth(username,password,email))
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Signup);
+export default SignIn;
