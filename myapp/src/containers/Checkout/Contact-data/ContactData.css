@@ -6,8 +6,75 @@
     border: 1px solid #eee;
     padding: 10px;
 }
-.Input{
+h1{
+    color: white;
+}
+
+.Form {
+    background-color: #8F5C2C;
+    color: #eee;
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    z-index: 100;
+    padding: 10px;
+    box-sizing: border-box;
+}
+button{
+    background-color: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+}
+.Success {
+    margin-left: 0;
+    padding-left: 0;
+    color: #5C9210;
+}
+.Label{
+    font-weight: bold;
     display: block;
+    margin: 8px  10px;
+    text-align: left
+}
+.Input{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.Invalid {
+    margin-top: 8px;
+    color: red;
+}   
+.InputGroup{
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+.InputGroupBtn{
+    position: relative;
+    font-size: 0;
+    white-space: nowrap;
+}
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+.FormControl{
+    position: relative;
+    float: left;
+    width: 100%;
+    margin-bottom: 0
 }
 @media(min-width: 600px){
     .ContactData{

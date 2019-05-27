@@ -3,7 +3,9 @@ import classes from './Input.css';
 import {Formik,Form,Field} from 'formik'   
 import * as Yup from 'yup';
 class Input extends Component {
+    
     render(){
+        let test = {};
         const SignupSchema = Yup.object().shape({
             username: Yup.string()
             .min(2, 'Too Short!')
@@ -26,19 +28,22 @@ class Input extends Component {
                 }}
                  validationSchema = {SignupSchema}
                  onSubmit = {values => {
+                     test=values;
                      console.log(values);
+                     console.log(test)
                  }}>
             {({errors,touched}) => (
-               <div className = {classes.Form}>
-                   <h1>Sign up</h1>
-                     <Form >
+               <div className = {classes.To}>
+                   
+                     <Form className = {classes.Form} >
+                     <h2>Sign up</h2>
                          <label className={classes.Label}>Username</label>
-                        <Field name="username" className ={classes.Input}/>
+                        <Field name="username" className ={classes.Input} />
                         {errors.username && touched.username ? (
                             <div className={classes.Invalid} >{errors.username}</div>
                         ) : null}
-                        <label  className={classes.Label}>Password</label>
-                        <Field name="password" className ={classes.Input} />
+                         <label  className={classes.Label}>Password</label>
+                        <Field name="password" type="password"className ={classes.Input} />
                         {errors.password && touched.password ? (
                             <div className={classes.Invalid} >{errors.password}</div>
                         ) : null}

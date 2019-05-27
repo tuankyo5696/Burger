@@ -1,69 +1,110 @@
 import React, {Component} from 'react';
 import classes from './ContactData.css';
-import Button from './../../../components/UI/Button/Button';
-import Spinner from '../../../components/UI/Spinner/Spinner';
+
 import axios from './../../../axios-order';
+import {Formik,Form,Field} from 'formik'   
+import * as actions from './../../../store/actions/index'
+import withErrorHandler from './../../../hoc/withErrorHandle/withErrorHandle';
+import {connect} from 'react-redux'
+import * as Yup from 'yup';
 class ContactData extends Component {
-        state = {
-            name: '',
-            email: '',
-            address: {
-                street : '',
-                postalCode: '',
-            },
-            loading : false
-        }
-    orderHandler = (event) => {
-            event.preventDefault();
-            console.log(this.props.ingredients);
-            this.setState({
-                loading: true
-            })
-                const order = {
+      state = {
+          orderForm : {}
+      }
+    orderHandler = (orderData)  => {
+       
+            
+            const order = {
                 ingredients : this.props.ingredients,
                 price : this.props.price,
-                customer: {
-                    name: 'Tuan',
-                    address: {
-                        street : 'abjlkjfl',
-                        zipcode : '`12345',
-                        country: 'VN'
-                    },
-                    email : 'anhtuan@pycogroup.com',
-                    phone : '09111111111'
-                },
-                deliveryMethod : 'fast'
+                orderData: orderData
+ 
             }
-            axios.post('/order.json',order)
-            .then(response => {
-                this.setState({
-                    loading: false
-                });
-                this.props.history.push('/');
-            })
-            .catch(error => this.setState({loading : false}))
-    }
+            console.log(order)
+            this.props.onOrderBurger(order);
+        }
+         
 
     render(){
-        let form = (
-            <form>
-            <input type="text" className = {classes.input} name="name" placeholder="Yourname"/>
-            <input type="email" className = {classes.input} name="email" placeholder="Youremail"/>
-            <input type ="text" className = {classes.input}name = "text" placeholder ="Street"/>
-            <input type ="text" className = {classes.input}name = "text" placeholder ="PostalCode"/>
-            <Button btnType="Success" clicked= {this.orderHandler} >ORDER</Button>
-            </form>
-        )
-        if(this.state.loading){
-            form = <Spinner/>
-        }
+        const ContactSchema = Yup.object().shape({
+            yourname: Yup.string()
+            .min(2, 'Too Short!')
+            .max(50, 'Too long!')
+            .required('Username is required'),
+            street : Yup.string()
+            .max(100, 'Too long!')
+            .required('Password is required'),
+            phone : Yup.number()
+            .positive('')
+            .integer('')
+            .required('Phone number is required'),
+            email: Yup.string()
+            .email('Invalid email')
+            .required('Email is required')
+        })
+     
+    
         return(
             <div className = {classes.ContactData}>
-                <h1> Enter your Contact data:</h1>
-                {form}    
+                 <Formik 
+                initialValues = {{
+                    yourname: '',
+                    street: '',
+                    phone: '',
+                    email: ''
+                }}
+                 validationSchema = {ContactSchema}
+                 onSubmit = {
+                  (values) =>{
+                 this.orderHandler(values)
+                   }}>
+            {({errors,touched}) => (
+               <div className = {classes.Form}>
+                   <h2>Contact Data</h2>
+                     <Form >
+                         <label className={classes.Label}>Name</label>
+                        <Field name="yourname" className ={classes.Input} />
+                        {errors.yourname && touched.yourname ? (
+                            <div className={classes.Invalid} >{errors.yourname}</div>
+                        ) : null}
+                        <label  className={classes.Label}>Street</label>
+                        <Field name="street" className ={classes.Input} />
+                        {errors.street && touched.street ? (
+                            <div className={classes.Invalid} >{errors.street}</div>
+                        ) : null}
+                         <label  className={classes.Label}>Phone</label>
+                         <Field name="phone" className ={classes.Input} />
+                        {errors.phone && touched.phone ? (
+                            <div className={classes.Invalid} >{errors.phone}</div>
+                        ) : null}
+                         
+                        
+                        <label  className={classes.Label}>Email</label>
+                      
+                        <Field name="email" type="email"  className ={classes.Input}/>
+                        {errors.email && touched.email ? <div className={classes.Invalid}>{errors.email}</div> : null}
+                        <button type="submit" className={classes.Success}>ORDER</button>
+                    </Form>
+               </div> 
+            )} 
+            </Formik>   
             </div>
         )
     }
 }
 
-export default ContactData
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
