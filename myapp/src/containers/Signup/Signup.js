@@ -25,8 +25,16 @@ class Signup extends Component {
             .email('Invalid email')
             .required('Email is required')
         })
+        let errorMessage = null;
+        if(this.props.error){
+            errorMessage = (
+                <p>{this.props.error.message}</p>
+            )
+        }
         return(
-            <Formik 
+            <div>
+                {errorMessage}
+                 <Formik 
                 initialValues = {{
                     username: '',
                     password: '',
@@ -61,13 +69,16 @@ class Signup extends Component {
                </div> 
             )} 
             </Formik>
+            </div>
+           
         )
     }
 }
 
 const mapStateToProps = state  => {
     return {
-      
+
+      error: state.auth.error     
     }
 }
 
