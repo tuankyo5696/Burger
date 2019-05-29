@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+  }
+  
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: $m-size;
+    color: $dark-grey;
+    line-height: 1.6;
+  }
+
+  .page-top-margin {
+    margin-top: $xl-size;
+  }
+
+  .mt {
+    margin-top: 35px;
+  }
+  
+  .cursor {
+    cursor: pointer;
+}
+
+.ui.segment{
+  border: none !important;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-text {
+  text-align: center;
+}

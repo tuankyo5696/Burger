@@ -8,14 +8,19 @@ import * as serviceWorker from './serviceWorker';
 import orderReducer from './store/reducers/order';
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import authReducer from './store/reducers/auth';
+import productsReducer from './store/reducers/products';
 import {Provider} from 'react-redux';
+import './../node_modules/semantic-ui-css/semantic.min.css';
 import {createStore,applyMiddleware,compose,combineReducers} from 'redux';
 import thunk from 'redux-thunk';
+
+import './styles/styles.scss';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     burgerBuilder: burgerBuilderReducer,
+    products: productsReducer,
     order: orderReducer,
     auth: authReducer
 });
@@ -26,9 +31,12 @@ const store = createStore(rootReducer, composeEnhancers(
 
 const  app = (
     <Provider store ={store}>
+        
         <BrowserRouter>
             <App />
         </BrowserRouter>
+
+        
     </Provider>
     
 );
