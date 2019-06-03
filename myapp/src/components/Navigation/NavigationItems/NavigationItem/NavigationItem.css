@@ -3,6 +3,8 @@
     box-sizing: border-box;
     display: block;
     width: 100%;
+    font-size: responsive  12px 21px;
+  
 }
 
 .NavigationItem a {
@@ -18,6 +20,8 @@
 .NavigationItem a.active {
     color: #40A4C8;
 }
+
+
 
 @media (min-width: 500px) {
     .NavigationItem {

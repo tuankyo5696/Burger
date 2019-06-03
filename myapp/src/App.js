@@ -8,7 +8,6 @@ import Signup from './containers/Signup/Signup';
 import SignIn from './containers/SignIn/Signin';
 import BurgerList from './containers/Storepage/BurgerList';
 
-import './App.css';
 import ProductView from './components/Products/ProductView/ProductView';
 
 class App extends Component {
